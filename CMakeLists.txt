@@ -19,3 +19,30 @@ if(BUILD_TESTS)
     enable_testing()
     add_test(NAME check COMMAND check)
 endif()
+
+include(CPack)
+
+set(CPACK_PACKAGE_NAME "solver")
+set(CPACK_PACKAGE_VERSION "1.0.0")
+set(CPACK_PACKAGE_DESCRIPTION "Solver application")
+set(CPACK_PACKAGE_VENDOR "schau721")
+
+set(CPACK_GENERATOR "TGZ;ZIP")
+
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "schau721")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "")
+
+set(CPACK_RPM_PACKAGE_LICENSE "MIT")
+set(CPACK_RPM_PACKAGE_GROUP "Development/Tools")
+
+install(TARGETS print
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+    RUNTIME DESTINATION bin
+)
+
+install(DIRECTORY include/ DESTINATION include)
+
+install(TARGETS solver
+    RUNTIME DESTINATION bin
+)
