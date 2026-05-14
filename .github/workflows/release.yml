@@ -38,10 +38,10 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y cmake build-essential rpm
+        sudo apt-get install -y cmake build-essential rpm libgtest-dev
     
     - name: Configure CMake for packaging
-      run: cmake -H. -B_build -DCMAKE_BUILD_TYPE=Release
+      run: cmake -H. -B_build -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS=OFF
     
     - name: Build project
       run: cmake --build _build
