@@ -1,7 +1,19 @@
+#include <print.h>
+#include <fstream>
 #include <iostream>
 
-using namespace std;
+void print(const std::string& text) {
+    std::cout << text << std::endl;
+}
 
-void print (const string& message){
-cout << message << endl;
+void print(const std::string& text, std::ostream& out) {
+    out << text << std::endl;
+}
+
+void print(const std::string& text, const std::string& filename) {
+    std::ofstream out(filename);
+    if (out.is_open()) {
+        out << text << std::endl;
+        out.close();
+    }
 }

@@ -2,6 +2,11 @@
 #define PRINT_H
 
 #include <string>
-void print(const std::string& message);
+#include <iostream>
+#include <fstream>
 
-#endif
+void print(const std::string& text);
+void print(const std::string& text, std::ostream& out);
+void print(const std::string& text, const std::string& filename);
+
+#endif // PRINT_H

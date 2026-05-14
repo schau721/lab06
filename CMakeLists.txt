@@ -1,36 +1,30 @@
-cmake_minimum_required(VERSION 3.4)
+cmake_minimum_required(VERSION 3.10)
+project(lab05)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-option(BUILD_EXAMPLES "Build examples" OFF)
+option(BUILD_TESTS "Build tests" ON)
 
-project(print)
+# Ваша библиотека
+add_library(print STATIC sources/print.cpp)
 
-add_library(print STATIC ${CMAKE_CURRENT_SOURCE_DIR}/sources/print.cpp)
+# Добавляем директорию с заголовочными файлами
+target_include_directories(print PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-target_include_directories(print PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>
-)
-
-if(BUILD_EXAMPLES)
-  file(GLOB EXAMPLE_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/examples/*.cpp")
-  foreach(EXAMPLE_SOURCE ${EXAMPLE_SOURCES})
-    get_filename_component(EXAMPLE_NAME ${EXAMPLE_SOURCE} NAME_WE)
-    add_executable(${EXAMPLE_NAME} ${EXAMPLE_SOURCE})
-    target_link_libraries(${EXAMPLE_NAME} print)
-    install(TARGETS ${EXAMPLE_NAME}
-      RUNTIME DESTINATION bin
-    )
-  endforeach(EXAMPLE_SOURCE ${EXAMPLE_SOURCES})
+if(BUILD_TESTS)
+    # Google Test
+    add_subdirectory(third-party/gtest)
+    
+    # Тесты
+    add_executable(check tests/test1.cpp)
+    
+    # Линкуем библиотеки
+    target_link_libraries(check PRIVATE print gtest_main)
+    
+    # Добавляем директорию с заголовками для тестов
+    target_include_directories(check PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+    
+    enable_testing()
+    add_test(NAME check COMMAND check)
 endif()
-
-install(TARGETS print
-    EXPORT print-config
-    ARCHIVE DESTINATION lib
-    LIBRARY DESTINATION lib
-)
-
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/ DESTINATION include)
-install(EXPORT print-config DESTINATION cmake)
