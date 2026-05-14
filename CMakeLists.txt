@@ -28,3 +28,5 @@ if(BUILD_TESTS)
     enable_testing()
     add_test(NAME check COMMAND check)
 endif()
+
+include(CPackConfig.cmake)
