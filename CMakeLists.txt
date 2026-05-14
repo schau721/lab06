@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(lab05)
+project(lab06)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -22,15 +22,18 @@ endif()
 
 include(CPack)
 
-set(CPACK_PACKAGE_NAME "solver")
+set(CPACK_PACKAGE_NAME "lab06")
 set(CPACK_PACKAGE_VERSION "1.0.0")
-set(CPACK_PACKAGE_DESCRIPTION "Solver application")
+set(CPACK_PACKAGE_DESCRIPTION "Lab06 solver application")
 set(CPACK_PACKAGE_VENDOR "schau721")
+set(CPACK_PACKAGE_CONTACT "schau721@example.com")
 
-set(CPACK_GENERATOR "TGZ;ZIP")
+set(CPACK_GENERATOR "DEB;RPM;TGZ;ZIP")
+set(CPACK_SET_DESTDIR ON)
 
-set(CPACK_DEBIAN_PACKAGE_MAINTAINER "schau721")
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "schau721@example.com")
 set(CPACK_DEBIAN_PACKAGE_DEPENDS "")
+set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "amd64")
 
 set(CPACK_RPM_PACKAGE_LICENSE "MIT")
 set(CPACK_RPM_PACKAGE_GROUP "Development/Tools")
@@ -38,7 +41,6 @@ set(CPACK_RPM_PACKAGE_GROUP "Development/Tools")
 install(TARGETS print
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
-    RUNTIME DESTINATION bin
 )
 
 install(DIRECTORY include/ DESTINATION include)
