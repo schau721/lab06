@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(lab06)
+project(lab05)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -42,7 +42,3 @@ install(TARGETS print
 )
 
 install(DIRECTORY include/ DESTINATION include)
-
-install(TARGETS solver
-    RUNTIME DESTINATION bin
-)
